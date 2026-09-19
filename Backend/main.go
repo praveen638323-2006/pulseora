@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,24 @@ func main() {
 			"http://localhost:5173",
 			"https://pulseora-rho.vercel.app",
 		},
+
+		// Allow Vercel deployment and preview URLs
+		AllowOriginFunc: func(origin string) bool {
+			// Local development
+			if origin == "http://localhost:5173" {
+				return true
+			}
+
+			// Production domain
+			if origin == "https://pulseora-rho.vercel.app" {
+				return true
+			}
+
+			// Vercel deployment / preview domains
+			return strings.HasPrefix(origin, "https://") &&
+				strings.HasSuffix(origin, ".vercel.app")
+		},
+
 		AllowMethods: []string{
 			"GET",
 			"POST",
@@ -46,12 +65,14 @@ func main() {
 			"DELETE",
 			"OPTIONS",
 		},
+
 		AllowHeaders: []string{
 			"Origin",
 			"Content-Type",
 			"Accept",
 			"Authorization",
 		},
+
 		AllowCredentials: true,
 	}))
 
