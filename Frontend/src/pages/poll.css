@@ -12,7 +12,6 @@
       transparent 28%
     ),
     var(--bg);
-
   color: var(--text);
 }
 
@@ -22,13 +21,9 @@
 
 .poll-navbar {
   height: 72px;
-
   border-bottom: 1px solid var(--border);
-
   background: rgba(7, 16, 24, 0.88);
-
   backdrop-filter: blur(18px);
-
   position: sticky;
   top: 0;
   z-index: 50;
@@ -54,7 +49,6 @@
   gap: 10px;
 
   font-family: "Space Grotesk", sans-serif;
-
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -93,7 +87,6 @@
   height: 1px;
 
   background: var(--cyan);
-
   opacity: 0.3;
 }
 
@@ -107,10 +100,8 @@
 
 .poll-back-link {
   color: var(--muted);
-
   font-size: 13px;
   font-weight: 600;
-
   transition: color 180ms ease;
 }
 
@@ -124,9 +115,7 @@
 
 .poll-main {
   width: min(900px, calc(100% - 40px));
-
   margin: 0 auto;
-
   padding: 65px 0 90px;
 }
 
@@ -138,7 +127,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 25px;
 }
 
@@ -161,7 +149,6 @@
   flex: 0 0 auto;
 
   border-radius: 50%;
-
   background: var(--success);
 
   box-shadow:
@@ -184,7 +171,6 @@
 
 .poll-vote-counter {
   color: var(--muted);
-
   font-size: 12px;
   font-weight: 600;
 }
@@ -199,7 +185,6 @@
 
 .poll-question-kicker {
   margin-bottom: 14px;
-
   color: var(--cyan);
 
   font-size: 10px;
@@ -220,7 +205,6 @@
 
 .poll-question-description {
   max-width: 650px;
-
   margin-top: 20px;
 
   color: var(--text-secondary);
@@ -345,13 +329,13 @@
 }
 
 .poll-option {
-  min-height: 65px;
+  min-height: 70px;
 
   display: flex;
   align-items: center;
   gap: 13px;
 
-  padding: 10px 13px;
+  padding: 12px 13px;
 
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -359,6 +343,9 @@
   background: var(--bg);
 
   cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
 
   transition:
     border-color 180ms ease,
@@ -373,7 +360,6 @@
 
 .poll-option.selected {
   border-color: var(--cyan);
-
   background: var(--cyan-soft);
 
   box-shadow:
@@ -386,6 +372,10 @@
   pointer-events: none;
 }
 
+/* =========================================================
+   RADIO
+   ========================================================= */
+
 .option-radio {
   width: 19px;
   height: 19px;
@@ -397,6 +387,9 @@
 
   border: 1.5px solid var(--muted);
   border-radius: 50%;
+
+  position: relative;
+  z-index: 2;
 }
 
 .poll-option.selected .option-radio {
@@ -419,6 +412,10 @@
     0 0 10px var(--cyan);
 }
 
+/* =========================================================
+   OPTION NUMBER
+   ========================================================= */
+
 .option-number {
   color: var(--muted);
 
@@ -426,21 +423,116 @@
 
   font-size: 10px;
   font-weight: 700;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   OPTION CONTENT
+   ========================================================= */
+
+.option-content {
+  flex: 1;
+  min-width: 0;
+
+  position: relative;
+  z-index: 2;
+}
+
+.option-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  width: 100%;
 }
 
 .option-text {
-  flex: 1;
+  min-width: 0;
 
   color: var(--text);
 
   font-size: 14px;
   font-weight: 600;
+
+  overflow-wrap: anywhere;
 }
+
+.option-stats {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+}
+
+.option-stats strong {
+  color: var(--cyan);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.option-stats span {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.option-progress {
+  display: block;
+
+  width: 100%;
+  height: 5px;
+
+  margin-top: 10px;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .option-progress {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.option-progress-fill {
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--cyan);
+
+  box-shadow:
+    0 0 10px var(--cyan-soft);
+
+  transition:
+    width 0.5s ease;
+}
+
+/* =========================================================
+   OPTION ARROW
+   ========================================================= */
 
 .option-arrow {
   color: var(--muted);
 
   font-size: 17px;
+
+  position: relative;
+  z-index: 2;
 
   transition:
     color 180ms ease,
@@ -451,6 +543,43 @@
 .poll-option.selected .option-arrow {
   color: var(--cyan);
   transform: translateX(3px);
+}
+
+/* =========================================================
+   HOVER OVERLAY
+   ========================================================= */
+
+.poll-option::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 0;
+
+  background: var(--cyan-soft);
+
+  transition: width 250ms ease;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.poll-option:hover::after {
+  width: 100%;
+}
+
+.poll-option.selected::after {
+  width: 100%;
+}
+
+.poll-option > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* =========================================================
@@ -481,6 +610,8 @@
   background: rgba(52, 211, 153, 0.08);
   border: 1px solid rgba(52, 211, 153, 0.18);
   color: var(--success);
+
+  animation: successMessageIn 250ms ease;
 }
 
 /* =========================================================
@@ -526,6 +657,10 @@
 .vote-submit-button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+}
+
+.vote-submit-button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
 }
 
 .vote-note {
@@ -831,10 +966,8 @@
    ========================================================= */
 
 @media (max-width: 760px) {
-
   .poll-main {
     width: min(100% - 28px, 900px);
-
     padding-top: 45px;
   }
 
@@ -852,7 +985,6 @@
 }
 
 @media (max-width: 520px) {
-
   .poll-navbar {
     height: 64px;
   }
@@ -899,54 +1031,49 @@
   }
 
   .poll-option {
-    min-height: 60px;
+    min-height: 65px;
+    gap: 9px;
+  }
+
+  .option-number {
+    display: none;
+  }
+
+  .option-top {
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .option-text {
     font-size: 13px;
   }
+
+  .option-stats {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .option-stats strong {
+    font-size: 13px;
+  }
+
+  .option-stats span {
+    display: none;
+  }
+
+  .option-arrow {
+    font-size: 15px;
+  }
+
+  .option-progress {
+    height: 4px;
+    margin-top: 8px;
+  }
 }
 
 /* =========================================================
-   EXTRA INTERACTION POLISH
+   ACCESSIBILITY / REDUCED MOTION
    ========================================================= */
-
-.poll-option {
-  position: relative;
-  overflow: hidden;
-}
-
-.poll-option::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-
-  width: 0;
-
-  background: var(--cyan-soft);
-
-  transition: width 250ms ease;
-
-  pointer-events: none;
-}
-
-.poll-option:hover::after {
-  width: 100%;
-}
-
-.poll-option > * {
-  position: relative;
-  z-index: 2;
-}
-
-.poll-option.selected::after {
-  width: 100%;
-}
-
-/* Better keyboard accessibility */
 
 .poll-option:focus-within {
   border-color: var(--cyan);
@@ -955,22 +1082,8 @@
     0 0 0 3px var(--cyan-soft);
 }
 
-/* Vote button press feedback */
-
-.vote-submit-button:active:not(:disabled) {
-  transform: translateY(1px) scale(0.99);
-}
-
-/* Share buttons */
-
 .poll-action-button:active {
   transform: scale(0.97);
-}
-
-/* Better success message */
-
-.poll-success {
-  animation: successMessageIn 250ms ease;
 }
 
 @keyframes successMessageIn {

@@ -430,66 +430,77 @@ function Poll() {
 
             {/* ================= OPTIONS ================= */}
 
-            <div className="options-list">
+           <div className="options-list">
 
-              {(poll.options || []).map(
-                (option, index) => (
+  {(poll.options || []).map((option, index) => {
+    const votes = option.votes || 0;
 
-                  <label
-                    key={option.id}
-                    className={`poll-option ${
-                      selectedOption === option.id
-                        ? "selected"
-                        : ""
-                    }`}
-                  >
+    const percentage =
+      totalVotes > 0
+        ? Math.round((votes / totalVotes) * 100)
+        : 0;
 
-                    <input
-                      type="radio"
-                      name="poll-option"
-                      value={option.id}
-                      checked={
-                        selectedOption === option.id
-                      }
-                      onChange={() => {
-                        setSelectedOption(
-                          option.id
-                        );
+    return (
+      <label
+        key={option.id}
+        className={`poll-option ${
+          selectedOption === option.id ? "selected" : ""
+        }`}
+      >
 
-                        setError("");
-                        setMessage("");
-                      }}
-                    />
+        <input
+          type="radio"
+          name="poll-option"
+          value={option.id}
+          checked={selectedOption === option.id}
+          onChange={() => {
+            setSelectedOption(option.id);
+            setError("");
+            setMessage("");
+          }}
+        />
 
+        <span className="option-radio">
+          <span />
+        </span>
 
-                    <span className="option-radio">
-                      <span />
-                    </span>
+        <span className="option-number">
+          {String(index + 1).padStart(2, "0")}
+        </span>
 
+        <span className="option-content">
 
-                    <span className="option-number">
-                      {String(index + 1).padStart(
-                        2,
-                        "0"
-                      )}
-                    </span>
+          <span className="option-top">
+            <span className="option-text">
+              {option.text}
+            </span>
 
+            <span className="option-stats">
+              <strong>{percentage}%</strong>
+              <span>{votes} votes</span>
+            </span>
+          </span>
 
-                    <span className="option-text">
-                      {option.text}
-                    </span>
+          <span className="option-progress">
+            <span
+              className="option-progress-fill"
+              style={{
+                width: `${percentage}%`,
+              }}
+            />
+          </span>
 
+        </span>
 
-                    <span className="option-arrow">
-                      →
-                    </span>
+        <span className="option-arrow">
+          →
+        </span>
 
-                  </label>
+      </label>
+    );
+  })}
 
-                )
-              )}
-
-            </div>
+</div>
 
 
             {/* ================= ERROR MESSAGE ================= */}

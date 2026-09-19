@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 Frontend/.env.production
+
+.vercel
+.env*
