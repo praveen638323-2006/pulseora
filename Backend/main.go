@@ -37,6 +37,7 @@ func main() {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
 			"http://localhost:5173",
+			"https://pulseora-rho.vercel.app",
 		},
 		AllowMethods: []string{
 			"GET",
