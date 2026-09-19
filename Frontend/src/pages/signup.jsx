@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
@@ -24,7 +25,7 @@ function Signup() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/auth/signup",
+        `${API_URL}/api/auth/signup`,
         {
           method: "POST",
           headers: {

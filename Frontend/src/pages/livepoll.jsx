@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./livepoll.css";
@@ -18,7 +19,7 @@ function LivePoll() {
       setError("");
 
       const response = await fetch(
-        "http://localhost:8080/api/polls/live"
+        `${API_URL}/api/polls/live`
       );
 
       if (!response.ok) {

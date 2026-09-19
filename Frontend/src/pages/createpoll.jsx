@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./createpoll.css";
@@ -76,7 +77,7 @@ function CreatePoll() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/polls",
+        `${API_URL}/api/polls`,
         {
           method: "POST",
           headers: {

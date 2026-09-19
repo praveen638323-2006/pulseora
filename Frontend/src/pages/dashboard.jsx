@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
@@ -42,10 +43,10 @@ function Dashboard() {
       };
 
       const [pollResponse, liveResponse] = await Promise.all([
-        fetch("http://localhost:8080/api/polls", {
+       fetch(`${API_URL}/api/polls`, {
           headers,
         }),
-        fetch("http://localhost:8080/api/polls/live"),
+        fetch(`${API_URL}/api/polls/live`),
       ]);
 
       if (pollResponse.status === 401) {
@@ -94,7 +95,7 @@ function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/polls/${id}`,
+        `${API_URL}/api/polls/${id}`,
         {
           method: "DELETE",
           headers: {

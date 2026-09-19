@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./poll.css";
@@ -39,7 +40,7 @@ function Poll() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/polls/${id}`
+       `${API_URL}/api/polls/${id}`
       );
 
       if (!response.ok) {
@@ -73,7 +74,7 @@ function Poll() {
     if (!id) return;
 
     const eventSource = new EventSource(
-      `http://localhost:8080/api/polls/${id}/stream`
+      `${API_URL}/api/polls/${id}/stream`
     );
 
     eventSource.onmessage = (event) => {
@@ -120,7 +121,7 @@ function Poll() {
       setMessage("");
 
       const response = await fetch(
-        `http://localhost:8080/api/polls/${id}/vote`,
+        `${API_URL}/api/polls/${id}/vote`,
         {
           method: "POST",
 

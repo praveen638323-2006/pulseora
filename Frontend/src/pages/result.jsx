@@ -1,3 +1,4 @@
+import API_URL from "../services/api";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -17,7 +18,7 @@ function Result() {
 
     // Connect to Go backend SSE stream
     const eventSource = new EventSource(
-      `http://localhost:8080/api/polls/${id}/stream`
+      `${API_URL}/api/polls/${id}/stream`
     );
 
     eventSource.onmessage = (event) => {
